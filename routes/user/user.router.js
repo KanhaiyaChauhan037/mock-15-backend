@@ -15,6 +15,7 @@ app.get("/", async (req, res) => {
   }
 });
 
+
 app.post("/login", async (req, res) => {
 
   const { email, password } = req.body;
@@ -22,7 +23,7 @@ app.post("/login", async (req, res) => {
   console.log(email,password)
  
    if (!email || !password) {
-     return res.status(403).send("First Enter Credianteials");
+     return res.status(403).send("Enter Credianteials");
    }
  
    const User = await UserModel.findOne({ email });
@@ -32,6 +33,7 @@ app.post("/login", async (req, res) => {
      const match = bcrypt.compareSync(password, User.password);
     console.log(match)
      if (match) {
+ 
        const token = jwt.sign(
          {
            _id: User.id,
@@ -40,7 +42,7 @@ app.post("/login", async (req, res) => {
          },
          SECRET_TOKEN,
          {
-           expiresIn: "1 days",
+           expiresIn: "7 days",
          }
        );
        const refresh_token = jwt.sign(
@@ -51,7 +53,7 @@ app.post("/login", async (req, res) => {
          },
          SECRET_TOKEN,
          {
-           expiresIn: "1 days",
+           expiresIn: "28 days",
          }
        );
        return res
@@ -64,7 +66,6 @@ app.post("/login", async (req, res) => {
      return res.status(401).send({ message: "Authentication Failed" });
    }
  });
-
 app.post("/signup", async (req, res) => {
   const {
     email,
@@ -72,8 +73,9 @@ app.post("/signup", async (req, res) => {
     username,
   } = req.body;
 
+
   if (!email || !password || !username ) {
-    return res.status(403).send(" First Enter Credentails");
+    return res.status(403).send("Enter Credentails");
   }
 
   try {
@@ -85,7 +87,7 @@ app.post("/signup", async (req, res) => {
     
     bcrypt.hash(password, 6, async function (err, hash) {
       if (err) {
-        return res.status(403).send({ message: "Connection error" });
+        return res.status(403).send({ message: "Connection has failed" });
       }
 
         const user = await UserModel({
@@ -97,7 +99,7 @@ app.post("/signup", async (req, res) => {
       await user.save();
       return res
       .status(200)
-      .send({ message: "Signup successfully "});
+      .send({ message: "Signup success"});
 
     });
   } catch (er) {
