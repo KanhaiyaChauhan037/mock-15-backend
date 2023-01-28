@@ -4,7 +4,7 @@ const UserModel = require("./user.model");
 const app = Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const SECRET_TOKEN = "asdsg35sr35g4hsadfad"
+const SECRET_TOKEN = "kanhai1234"
 
 app.get("/", async (req, res) => {
   try {

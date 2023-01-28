@@ -5,3 +5,5 @@ const connect = async () => {
   return mongoose.connect(`mongodb+srv://kch:kch@mock-15.utcr2qa.mongodb.net/?retryWrites=true&w=majority`);
 };
 module.exports = connect;
+
+// https://amber-skunk-boot.cyclic.app/user
